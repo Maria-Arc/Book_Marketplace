@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div style="background-color: rgba(111, 197, 212, 0.178);">
+        <h2 style="background-color: rgb(111, 197, 212); text-align: center;">User Profile</h2>
+    </div>
+
+    <p style="text-align: center;">To update, enter new information and select button below</p>
+    
+    <form method="POST" action="{{ url_for('edituser') }}" style="background-color: rgba(111, 197, 212, 0.178); width: 400px; margin: 0 auto; padding: 10px; text-align: center; margin-top: 20px;">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" value="{{ user }}"><br><br>
+
+        <label for="email">Address:</label><br>
+        <input type="text" id="address" name="address" value="{{ address }}"><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="text" id="password" name="password" value="{{ password }}"><br><br>
+
+
+        <label for="bio">Bio:</label><br>
+        <textarea id="bio" name="bio" rows="4" cols="50">{{ bio }}</textarea><br><br>
+
+        <input type="hidden" name="usern" value="{{ user }}">
+        <input type="hidden" name="action" value="update_profile">
+        <input type="submit" value="Update Profile">
+    </form>
+
+
+    <form method="GET" action="{{ url_for('home2') }}" style="text-align: center; margin-top: 20px;">
+        <button type="submit" style="padding: 10px 20px; background-color: rgb(111, 197, 212); border: none; border-radius: 5px; color: white;">
+            <input type="hidden" name="usern" value="{{ user }}">
+            Go back to Home
+        </button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+    <div
+     style="background-color: rgba(111, 197, 212, 0.178); ">
+
+     <form method="POST" action="{{ url_for('home2') }}" style="display: inline-block; margin-right: 87px;">
+        <input type="text" id="book" name="search_book" style="display: inline;">
+        <input type="hidden" name="usern" value="{{ user }}">
+        <input type="submit" name="action" value="search_book" style="display: inline;">
+
+    </form>
+
+    <form method="POST" action="{{ url_for('home2') }}" style="display: inline-block; margin-left: 600px;">
+        <input type="hidden" name="usern" value="{{ user }}">
+        <button type="submit" name="action" value="sort_price">
+            Sort by Price
+        </button>
+    </form>
+    
+    <form method="POST" style="display: inline; " >
+        <input type="hidden" name="usern" value="{{ user }}">
+    <button type="submit" name="action" value = sell_book style="display: inline-block;" >Sell a Book</button>
+    </form>
+
+    <form method="POST" style="display: inline;">
+        <input type="hidden" name="usern" value="{{ user }}">
+        <button type="submit" name="action" value = edit_account >Edit Your Account</button>
+    </form>
+
+    <form method="POST" style="display: inline; " >
+        <input type="hidden" name="usern" value="{{ user }}">
+        <button type="submit" name="action" value = logout >Logout</button>
+    </form>
+    <form method="POST" style="display: inline;">
+        <input type="hidden" name="usern" value="{{ user }}">
+        <button type="submit" name="action" value = delete_account >Delete Your Account</button>
+    </form>
+
+
+
+
+    <h2 style="background-color: rgb(111, 197, 212); text-align: center;">Homepage</h2>
+    </div>
+
+    <p style = "text-align: center;">To begin searching for a book, enter the title or its first few letters into the search bar.</p>
+    <p style = "text-align: center;">To display all books, simply click 'enter' in the search bar.</p>
+
+    <p> Welcome <strong>{{user}}</strong></p>
+    <p><strong>Bio:</strong> {{ bio }}</p>
+
+
+
+    <h3>Cart Genres</h3>
+    <ul>
+      {% for genre, count in genres %}
+        <li>{{ genre }}: {{ count }} book{{ 's' if count > 1 else '' }}</li>
+      {% endfor %}
+    </ul>
+
+
+
+    <h3 style="text-align: center; margin-top: 30px;">Books from Database</h3>
+
+<div style="background-color: rgba(111, 197, 212, 0.1); padding: 20px; width: 90%; margin: 0 auto 40px auto; border-radius: 8px;">
+    <table border="1" style="width: 100%; border-collapse: collapse; background-color: white;">
+        <tr style="background-color: rgb(111, 197, 212); text-align: center;">
+            <th>Seller</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Condition</th>
+            <th></th>
+        </tr>
+        {% for book in books %}
+        <tr style="text-align: center;">
+            <td>{{ book[0] }}</td>
+            <td>{{ book[1] }}</td>
+            <td>{{ book[2] }}</td>
+            <td>{{ book[3] }}</td>
+            <td>{{ book[4] }}</td>
+            <td>{{ book[5] }}</td>
+            <td>{{ book[6] }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('home2') }}">
+                    <input type="hidden" name="listing_id" value="{{ book[7] }}">
+                    <input type="hidden" name="usern" value="{{ user }}">
+                    <button type="submit" name="action" value="select_book">Add to Cart</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3 style="padding: 20px; width: 90%; margin: 20px auto 10px auto; border-radius: 8px; text-align: center;">Your Cart</h3>
+    <table border="1" style="width: 100%; border-collapse: collapse; background-color: white;">
+        <tr style="background-color: rgb(111, 197, 212); text-align: center;">
+            <th>Seller</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Condition</th>
+            <th></th>
+        </tr>
+        {% for cart in carts %}
+        <tr style="text-align: center;">
+            <td>{{ cart[0] }}</td>
+            <td>{{ cart[1] }}</td>
+            <td>{{ cart[2] }}</td>
+            <td>{{ cart[3] }}</td>
+            <td>{{ cart[4] }}</td>
+            <td>{{ cart[5] }}</td>
+            <td>{{ cart[6] }}</td>
+            <td><form method="POST" action="{{ url_for('home2') }}">
+                <input type="hidden" name="listing_id" value="{{ cart[7] }}">
+                <input type="hidden" name="usern" value="{{ user }}">
+                <button type="submit" name="action" value="remove_cart">Remove</button>
+            </td>
+            </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </Table>
+    <p style="text-align: left; font-weight: bold;">
+        Total Price: ${{ '%.2f' | format(price) }}
+    </p>
+
+    <form method="POST">
+        <input type="submit" name="action" value="Checkout">
+        <input type="hidden" name="usern" value="{{ user }}">
+    </form>
+</div>
+    
+    <script>
+		function clearInputField() {
+			document.getElementById('myForm').reset();
+		}
+	</script>
+</body>
+
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Marketplace Application</title>
+</head>
+<body>
+    <h2>Welcome to our application</h2>
+    <p>With this app you can buy and sell books</p>
+
+    <h2>Login</h2>
+    <form method="POST">
+        <label for="user_name">Enter Username:</label><br>
+        <input type="text" id="user_name" name="user_name"><br><br>
+        <label for="user_pass">Enter Password:</label><br>
+        <input type="password" id="user_pass" name="user_pass"><br><br>
+        <input type="submit" name = action value="Submit">
+    </form>
+
+    <h2>Or Make New Account</h2>
+    <form method="POST">
+        <label for="user_name">Enter Username:</label><br>
+        <input type="text" id="user_name" name="user_name"><br><br>
+        <label for="user_pass">Enter Password:</label><br>
+        <input type="password" id="user_pass" name="user_pass"><br><br>
+        <label for="user_add">Enter Address:</label><br>
+        <input type="text" id="user_add" name="user_add"><br><br>
+        <input type="submit" name = action value="Create Account">
+    </form>
+
+    <script>
+		function clearInputField() {
+			document.getElementById('myForm').reset();
+		}
+	</script>
+</body>
+</html>

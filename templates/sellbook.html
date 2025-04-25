@@ -1,0 +1,75 @@
+
+
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+
+    <!-- Header bar -->
+    <div style="background-color: rgba(111, 197, 212, 0.178); padding: 10px 0;">
+        <h2 style="background-color: rgb(111, 197, 212); text-align: center; margin: 0; padding: 10px;">Sell Your Books</h2>
+    </div>
+
+ 
+
+    <!-- Welcome message -->
+    <p style="text-align: center; margin-top: 20px;">Welcome, {{user}}!</p>
+
+    <!-- Section title -->
+    <h3 style="text-align: center; margin-top: 30px;">Books You Are Selling:</h3>
+
+    <!-- Table wrapper -->
+    <div style="background-color: rgba(111, 197, 212, 0.1); padding: 20px; width: 90%; margin: 0 auto 40px auto; border-radius: 8px;">
+
+        <table border="1" style="width: 100%; border-collapse: collapse; background-color: white;">
+            <tr style="background-color: rgb(111, 197, 212); text-align: center;">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Condition</th>
+                <th>ISBN</th>
+                <th>Genre</th>
+                <th> </th>
+            </tr>
+            {% for book in books %}
+            <tr style="text-align: center;">
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>${{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] }}</td>
+                <td>{{ book[5] }}</td>
+                <td> <form method="POST" action="{{ url_for('sellbook') }}">
+                    <input type="hidden" name="listing_id" value="{{ book[6] }}">
+                    <input type="hidden" name="usern" value="{{ user }}">
+                    <input type="submit" name="action" value="Remove">
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <h3 style="text-align: center; margin: 0; padding: 10px;">Sell a New Book</h3>
+    <form method="POST" style="background-color: rgba(111, 197, 212, 0.178); width: 300px; margin: 0 auto; padding: 10px; text-align: center">
+        <label for="book_title">Title:</label><br>
+        <input type="text" id="book_title" name="book_title" required><br><br>
+        
+        <label for="book_price">Price:</label><br>
+        <input type="text" id="book_price" name="book_price" required><br><br>
+        
+        <label for="book_condition">Condition:</label><br>
+        <input type="text" id="book_condition" name="book_condition" required><br><br>
+        
+        <button type="submit" name="action" value = addBook >Sell Book</button>
+        <input type="hidden" name="usern" value="{{ user }}">
+    </form>
+
+    <form method="GET" action="{{ url_for('home2') }}" style="text-align: center; margin-top: 20px;">
+        <button type="submit" style="padding: 10px 20px; background-color: rgb(111, 197, 212); border: none; border-radius: 5px; color: white;">
+            <input type="hidden" name="usern" value="{{ user }}">
+            Go back to Home
+        </button>
+    </form>
+    
+</body>
+</html>
